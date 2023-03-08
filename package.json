@@ -12,7 +12,9 @@
     "start": "node build/server.js",
     "lint": "eslint src --ext .ts --fix",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,8 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "1.2.0",
     "@types/node": "18.14.6",
+    "@vitest/coverage-c8": "0.29.2",
+    "@vitest/ui": "0.29.2",
     "eslint": "8.35.0",
     "prisma": "4.11.0",
     "tsup": "6.6.3",
