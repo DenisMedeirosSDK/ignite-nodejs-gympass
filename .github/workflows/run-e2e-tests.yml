@@ -1,0 +1,33 @@
+name: Run e2e Tests
+
+on: [push_request]
+
+jobs:
+  run-unit-tests:
+    name: Run e2e Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: bitnami/postgresql
+        ports:
+          - 5432:5432
+        env:
+          POSTGRESQL_USERNAME: ${{secrets.POSTGRESQL_USERNAME}}
+          POSTGRESQL_PASSWORD: ${{secrets.POSTGRESQL_PASSWORD}}
+          POSTGRESQL_DATABASE: ${{secrets.POSTGRESQL_DATABASE}}
+
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm test:e2e
+      env:
+        JWT_SECRET: ${{secrets.JWT_SECRET}}
+        DATABASE_URL: ${{secrets.DATABASE_URL}}
